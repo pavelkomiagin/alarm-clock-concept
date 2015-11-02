@@ -1,0 +1,277 @@
+$COLOR_WHITE: #fff
+$MAX_WIDTH: 400px
+$HEIGHT: 500px
+$SCALE_FACTOR_SMALL: .8
+$SCALE_FACTOR_LARGE: 1
+$OPACITY_FACTOR_SMALL: .6
+$OPACITY_FACTOR_LARGE: 1
+$WRAPPER_GRADIENT: linear-gradient(45deg, #495082, #4e7797)
+$CONTAINER_GRADIENT: linear-gradient(-45deg, #6e91e9, #70acee)
+$FIRST_ALARM_GRADIENT: linear-gradient(to right, #5c6cc1, #84a3df)
+$SECOND_ALARM_GRADIENT: linear-gradient(to right, #f1c29d, #f1de94)
+$THIRD_ALARM_GRADIENT: linear-gradient(to right, #8cd2d9, #afe3d1)
+$TIME_BLOCK_TITLE_GRADIENT: linear-gradient(to right, #fed1a7, #feeca8)
+$FREQUENCY_BLOCK_TITLE_GRADIENT: linear-gradient(to right, #93dccc, #9cd2f9)
+
+html
+  height: 100%
+  min-height: $HEIGHT
+
+body
+  height: 100%
+  margin: 0
+  font-family: 'Roboto', 'Arial', sans-serif
+  background-repeat: no-repeat
+  background-attachment: fixed
+  background: $WRAPPER_GRADIENT
+
+*
+  box-sizing: border-box
+
+.clearfix
+  &::after
+    content: ''
+    display: table
+    clear: both
+
+.wrapper
+  width: 100%
+  height: 100%
+  position: absolute
+.container
+  background: $CONTAINER_GRADIENT
+  max-width: $MAX_WIDTH
+  width: calc(100% - 20px)
+  height: $HEIGHT
+  left: 50%
+  top: 50%
+  position: absolute
+  transform: translateX(-50%) translateY(-50%)
+  box-shadow: 0 5px 10px rgba(0, 0, 0, .2)
+  overflow: hidden
+  .alarm_cards
+    padding: 70px 20px 20px
+    display: inline-block
+    height: 100%
+    width: 100%
+    position: absolute
+    &.hidden
+      animation: hide_alarm_cards 1s forwards
+    &.shown
+      animation: show_alarm_cards 1.5s forwards
+    .alarm_card
+      border-radius: 0 0 8px 8px
+      padding: 20px 10px 20px 20px
+      position: relative
+      margin: 0 auto
+      box-shadow: 0 5px 10px rgba(0, 0, 0, .2)
+      cursor: pointer
+      .time
+        color: $COLOR_WHITE
+        font-size: 50px
+        line-height: 62px
+        font-weight: 300
+        position: relative
+        display: inline-block
+        float: left
+        margin-top: 5px
+      .switcher
+        width: 90px
+        height: 60px
+        border: 2px solid $COLOR_WHITE
+        border-radius: 40px
+        position: relative
+        display: inline-block
+        float: right
+        cursor: pointer
+        box-shadow: inset 0 1px 2px rgba(0, 0, 0, .2)
+        box-sizing: border-box
+        &.on
+          background-color: rgba(255, 255, 255, .3)
+          &::after
+            transform: translateX(28px)
+        &::after
+          content: ' '
+          background-color: $COLOR_WHITE
+          border-radius: 50%
+          position: absolute
+          transform: translateX(-2px)
+          top: -2px
+          height: 60px
+          width: 60px
+          box-shadow: 0 3px 5px rgba(0, 0, 0, .3)
+          transition: transform .2s ease-in-out
+      .frequency
+        float: left
+        width: 100%
+        color: $COLOR_WHITE
+        &::before
+          font-family: FontAwesome
+          content: "\f133"
+          font-size: 14px
+          color: $COLOR_WHITE
+          margin-right: 6px
+          vertical-align: top
+          opacity: $OPACITY_FACTOR_SMALL
+      &.first
+        background: $FIRST_ALARM_GRADIENT
+        z-index: 3
+        width: 100%
+      &.second
+        background: $SECOND_ALARM_GRADIENT
+        z-index: 2
+        width: 95%
+      &.third
+        background: $THIRD_ALARM_GRADIENT
+        z-index: 1
+        width: 90%
+
+.alarm_change_card_wrapper
+  width: $MAX_WIDTH
+  height: $HEIGHT
+  padding: 70px 20px 20px
+  position: absolute
+  transform: translateX($MAX_WIDTH)
+  &.shown
+    animation: show_alarm_change_card_wrapper 1s .5s forwards
+    .alarm_change_card
+      animation: show_alarm_change_card .5s 1s forwards
+  &.hidden
+    animation: hide_alarm_change_card_wrapper 1s forwards
+    .alarm_change_card
+      animation: hide_alarm_change_card .5s forwards
+
+  .alarm_change_card
+    width: 100%
+    height: 100%
+    border-radius: 8px
+    transform: scale($SCALE_FACTOR_SMALL)
+    opacity: $OPACITY_FACTOR_SMALL
+    .title
+      width: 100%
+      padding: 10px
+      border-radius: 4px
+      color: rgba(0, 0, 0, .4)
+      box-shadow: 0 3px 5px rgba(0, 0, 0, .2)
+      position: relative
+      font-size: 24px
+    .time_block
+      .title
+        background: $TIME_BLOCK_TITLE_GRADIENT
+      .time
+        text-align: center
+        padding: 5px
+        background-color: #6b6ec5
+        .hours,
+        .minutes
+          display: inline-block
+          color: $COLOR_WHITE
+          font-size: 42px
+        .hours
+          .value
+            &::after
+              content: ':'
+              margin: 0 5px
+          .up,
+          .down
+            margin-left: -18px
+        .up,
+        .down
+          transition: all .2s ease-in-out
+          cursor: pointer
+          line-height: 20px
+          &:hover
+            opacity: .6
+    .frequency_block
+      border-radius: 0 0 8px 8px
+      position: relative
+      margin: 0 auto 20px
+      .title
+        background: $FREQUENCY_BLOCK_TITLE_GRADIENT
+      .days
+        background-color: #6b6ec5
+        color: $COLOR_WHITE
+        padding: 20px
+        text-align: center
+        .day
+          $DAY_WIDTH: calc((100% - 5px*6) / 7)
+          display: inline-block
+          width: $DAY_WIDTH
+          height: $DAY_WIDTH
+          font-size: 20px
+          cursor: pointer
+          line-height: 40px
+          border-radius: 50%
+          box-sizing: border-box
+          &.active
+            background-color: rgba(0, 0, 0, .2)
+          &:not(:last-child)
+            margin-right: 5px
+          &.free
+            color: #abefc0
+
+.saving_button
+  color: $COLOR_WHITE
+  background-color: #4c6ea5
+  bottom: 0
+  position: absolute
+  left: 50%
+  transform: translateX(-50%)
+  border-radius: 30px
+  padding: 20px 60px
+  cursor: pointer
+  transition: all .3s linear
+  &:hover
+    color: #4c6ea5
+    background-color: $COLOR_WHITE
+
+
+/************ Animations ***********/
+@keyframes hide_alarm_cards
+  50%
+    transform: scale($SCALE_FACTOR_SMALL)
+    opacity: $OPACITY_FACTOR_SMALL
+  100%
+    opacity: $OPACITY_FACTOR_SMALL
+    transform: scale($SCALE_FACTOR_SMALL) translateX(-120%)
+
+@keyframes show_alarm_cards
+  0%
+    transform: scale($SCALE_FACTOR_SMALL) translateX(-120%)
+    opacity: $OPACITY_FACTOR_SMALL
+  33%
+    transform: scale($SCALE_FACTOR_SMALL) translateX(-120%)
+    opacity: $OPACITY_FACTOR_SMALL
+  66%
+    transform: scale($SCALE_FACTOR_SMALL) translateX(0)
+    opacity: $OPACITY_FACTOR_SMALL
+  100%
+    opacity: $OPACITY_FACTOR_LARGE
+    transform: scale($SCALE_FACTOR_LARGE) translateX(0)
+
+@keyframes show_alarm_change_card_wrapper
+  50%
+    transform: translateX(0)
+  100%
+    transform: translateX(0)
+
+@keyframes hide_alarm_change_card_wrapper
+  0%
+    transform: translateX(0)
+  50%
+    transform: translateX(0)
+  100%
+    transform: translateX($MAX_WIDTH)
+
+@keyframes show_alarm_change_card
+  100%
+    opacity: $OPACITY_FACTOR_LARGE
+    transform: scale($SCALE_FACTOR_LARGE)
+
+@keyframes hide_alarm_change_card
+  0%
+    opacity: $OPACITY_FACTOR_LARGE
+    transform: scale($SCALE_FACTOR_LARGE)
+  100%
+    opacity: $OPACITY_FACTOR_SMALL
+    transform: scale($SCALE_FACTOR_SMALL)

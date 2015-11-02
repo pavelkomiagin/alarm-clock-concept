@@ -1,0 +1,41 @@
+.wrapper
+  .container
+    .alarm_cards
+      .alarm_card.first.clearfix data-index=0
+        .time
+        .switcher
+        .frequency
+      .alarm_card.second.clearfix data-index=1
+        .time
+        .switcher.on
+        .frequency
+      .alarm_card.third.clearfix data-index=2
+        .time
+        .switcher
+        .frequency
+
+    .alarm_change_card_wrapper
+      .alarm_change_card
+        .frequency_block
+          .title WHEN?
+          .days
+            .day Mo
+            .day Tue
+            .day We
+            .day Th
+            .day Fr
+            .day.free Sa
+            .day.free Su
+        .time_block
+          .title WHAT TIME?
+          .time
+            .hours
+              i.up.fa.fa-caret-up
+              .value 17
+              i.down.fa.fa-caret-down
+            .minutes
+              i.up.fa.fa-caret-up
+              .value 53
+              i.down.fa.fa-caret-down
+
+        .saving_button SAVE
