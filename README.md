@@ -9,3 +9,6 @@ Demo on codepen.io [here](http://codepen.io/pavel_komiagin/pen/EVRZmO)
 ![Demo](demo.gif)
 
 Have fun :)
+
+The MIT License (MIT)
+Copyright (c) 2015 Pavel Komiagin
